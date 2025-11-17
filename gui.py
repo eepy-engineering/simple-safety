@@ -71,7 +71,11 @@ async def page():
 
         ui.markdown(
             """
-            Made by Akhil Jalan.
+            Made by [Akhil Jalan](https://akhiljalan.github.io). 
+
+            See the [Github README](https://github.com/eepy-engineering/simple-safety) for technical details.
+            
+            Model weights are available on the [Hugging Face hub](https://huggingface.co/akhiljalan0/simple-safety).
             """
         ).classes('text-grey-7')
 
