@@ -2,6 +2,8 @@
 
 This repository contains public-facing code for `Simple-Safety`, a fine-tuned language model for content moderation. Model weights are available on [Hugging Face](https://huggingface.co/akhiljalan0/simple-safety). 
 
+Made by [Akhil Jalan](https://github.com/akhiljalan). 
+
 ## Web Demo
 
 You can test queries through a live demo at [http://akhil.bdu.st](http://akhil.bdu.st).
