@@ -4,7 +4,7 @@ This repository contains public-facing code for `Simple-Safety`, a fine-tuned la
 
 ## Web Demo
 
-You can test queries through a live demo [here](akhil.bdu.st).
+You can test queries through a live demo at [http://akhil.bdu.st](http://akhil.bdu.st).
 
 ## Model Details
 
