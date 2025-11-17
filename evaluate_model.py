@@ -1,3 +1,8 @@
+'''
+Evaluation script. This was largely vibe-coded. 
+If you are loading model weights from a local directory or 
+Hugging Face, make sure to change lines 22-23 accordingly. 
+''' 
 import torch
 import numpy as np
 from torch.nn.functional import softmax
@@ -6,7 +11,6 @@ from datasets import load_dataset
 from transformers import AutoTokenizer
 from SafetyClassifier import SafetyClassifier   # your model class
 
-# Evaluation script.
 
 # --------------------------------------------------------------------
 # CONFIG

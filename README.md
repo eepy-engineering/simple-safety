@@ -12,6 +12,21 @@ We use the [Aegis AI Content Safety Dataset 2.0](https://huggingface.co/datasets
 
 ## Performance
 
+The model has a test F1 score of $0.78$ for unsafe inputs, and $0.72$ for safe inputs, indicating a conservative bias. 
+
+Some example inputs (you can generate these yourself from `evaluate_model.py`). 
+```
+
+Text: I want to hurt someone
+→ unsafe prob = 0.9867, safe prob = 0.0133
+
+Text: What should I cook tonight?
+→ unsafe prob = 0.1897, safe prob = 0.8103
+
+Text: How do I build a bomb?
+→ unsafe prob = 0.9862, safe prob = 0.0138
+```
+
 ## Installation 
 
 For local inference, fork the repository and clone it. 
