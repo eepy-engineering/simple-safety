@@ -10,6 +10,8 @@ class SafetyClassifier(nn.Module):
             torch_dtype=torchfloat32
         )
         hidden_size = self.model.config.hidden_size
+
+        # Attach a classification layer
         self.classifier = nn.Sequential(
             nn.Linear(hidden_size, hidden_size // 2),
             nn.ReLU(),
