@@ -1,7 +1,7 @@
 from torch import load, softmax 
 from SafetyClassifier import SafetyClassifier
 from transformers import AutoTokenizer
-
+# akhil.bdu.st/simple-safety, 8098 
 class SafetyClassifierForward:
     def __init__(self, base_model_name): 
         self.model = SafetyClassifier(base_model_name)
@@ -9,8 +9,8 @@ class SafetyClassifierForward:
         # expects mounted directory called "data"
         checkpoint_path = 'data/Qwen3-0.6B_safety/'
         self.model.load_state_dict(load(
-            f"{checkpoint_path}/simple_safety_cpu.bin"
-            # map_location='cpu' # TODO change device 
+            f"{checkpoint_path}/simple_safety_cpu.bin",
+            map_location='cpu' # TODO check backend 
         ))
         self.tokenizer = AutoTokenizer.from_pretrained(base_model_name)
         if self.tokenizer.pad_token is None: 
@@ -27,3 +27,12 @@ class SafetyClassifierForward:
         torch_probs = softmax(outputs['logits'], dim=-1)
         prob_unsafe = float(torch_probs[0][0])
         return prob_unsafe
+
+# if __name__ == "__main__": 
+#     base_model_name = 'Qwen/Qwen3-0.6B'
+#     model = SafetyClassifier(base_model_name)
+#     checkpoint_path = 'data/Qwen3-0.6B_safety/'
+#     model.load_state_dict(load(
+#         f"{checkpoint_path}/simple_safety_cpu.bin", 
+#         map_location='cpu'
+#     ))

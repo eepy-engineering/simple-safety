@@ -2,28 +2,41 @@ from nicegui import ui, run
 from SafetyClassifierForward import SafetyClassifierForward
 from asyncio import to_thread
 
+# Async function to load the model
+model_instance = None
+async def load_model():
+    global model_instance
+    model_instance = await to_thread(
+        lambda: SafetyClassifierForward('Qwen/Qwen3-0.6B')
+    )
+
+
 @ui.page('/')
 async def page(): 
-
-    loading_dialog = ui.dialog()
-    with loading_dialog, ui.column().classes('items-center justify-center h-screen bg-white bg-opacity-95'):
+    global model_instance
+    if model_instance is None: 
+        loading_dialog = ui.dialog()
+        with loading_dialog, ui.column().classes('items-center justify-center h-screen bg-white bg-opacity-95'):
             ui.spinner(size='lg')
             ui.label('Loading safety model...').classes('text-lg text-gray-700')
 
-    loading_dialog.open()
-    # Initialize Model Instance
-    model_instance = await to_thread(lambda: SafetyClassifierForward('Qwen/Qwen3-0.6B'))
-    loading_dialog.close()
+            # Ininitialize model instance
+            loading_dialog.open()
+            await load_model()
+            loading_dialog.close()
 
     with ui.column().classes('q-pa-xl'):
         ui.markdown('## **Simple Safety Classifier**')
         ui.markdown(
             """
-            This demo runs a lightweight LLM for content moderation. 
+            This demo runs a lightweight LLM for content moderation.
+
             Given a text input, it predicts whether the context is **safe** or **unsafe**
             based on a finetuned Qwen 0.6B model.
+
+            The model is tiny, so it will make some mistakes. See if you can find any!
             """
-        ).classes('text-center text-grey-7')
+        ).classes('text-grey-7')
 
 
         text_input = ui.input(label='Text', placeholder='Input query here', 
@@ -54,7 +67,12 @@ async def page():
                     f'Your input is safe with probability {prob_safe:.3f}.'
                 )
                 result_label.classes(add='text-green-600')
-            # ui.notify('Processed!')
         ui.button('Evaluate', on_click=on_submit).classes('q-mt-md')
 
-ui.run(port = 8070) #TODO check ports
+        ui.markdown(
+            """
+            Made by Akhil Jalan.
+            """
+        ).classes('text-grey-7')
+
+ui.run(port = 8098, host="0.0.0.0")
