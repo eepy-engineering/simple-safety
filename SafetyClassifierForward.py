@@ -17,8 +17,7 @@ class SafetyClassifierForward:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
     def eval_text(self, text_input): 
-        if len(text_input) < 50: 
-            text_input = self.prepend_prompt(text_input)
+        text_input = self.prepend_prompt(text_input)
         inputs = self.tokenizer(
             text_input, 
             return_tensors = 'pt', 
@@ -31,5 +30,5 @@ class SafetyClassifierForward:
         return prob_unsafe
 
     def prepend_prompt(self, text_input): 
-        prefix = 'Is the following text considered safe? '
+        prefix = 'Is the following text considered safe? The user said: '
         return prefix + text_input
