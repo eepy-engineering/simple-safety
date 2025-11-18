@@ -17,6 +17,7 @@ class SafetyClassifierForward:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
     def eval_text(self, text_input): 
+        text_input = self.prepend_prompt(text_input)
         inputs = self.tokenizer(
             text_input, 
             return_tensors = 'pt', 
@@ -27,3 +28,7 @@ class SafetyClassifierForward:
         torch_probs = softmax(outputs['logits'], dim=-1)
         prob_unsafe = float(torch_probs[0][0])
         return prob_unsafe
+
+    def prepend_prompt(self, text_input): 
+        prefix = 'Is the following text considered safe? The user said: '
+        return prefix + text_input
