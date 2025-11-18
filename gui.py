@@ -34,7 +34,7 @@ async def page():
             Given a text input, it predicts whether the context is **safe** or **unsafe**
             based on a finetuned Qwen 0.6B model.
 
-            The model is tiny, so it will make some mistakes. See if you can find any!
+            The model is tiny, so it will make mistakes. See if you can jailbreak it!
             """
         ).classes('text-grey-7')
 
